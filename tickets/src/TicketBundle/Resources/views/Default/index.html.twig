@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+
+        <script type="text/javascript" src= {{ asset('node_modules/jquery/dist/jquery.min.js') }}></script>
+        <script type="text/javascript" src= {{ asset('node_modules/bootstrap/dist/js/bootstrap.min.js') }}></script>
+        {#<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>#}
+        {#<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>#}
+
+        <link rel="stylesheet" type="text/css" href= {{ asset('node_modules/bootstrap/dist/css/bootstrap.min.css') }} />
+        <link rel="stylesheet" type="text/css" href= {{ asset('node_modules/bootstrap/dist/css/bootstrap-theme.min.css') }} />
+        <link rel="stylesheet" type="text/css" href= {{ asset('bundles/Ticket/template.css') }} />
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        <div id="Contenedor">
+            {% for flashMessage in app.session.flashBag.get('danger') %}
+                <div class="alert alert-danger alert-dismissible" id="myAlertDanger">
+                    <a href="#" class="close">&times;</a>
+                    <strong>{{ flashMessage }}</strong>
+                </div>
+            {% endfor %}
+            <div class="Icon">
+                <h5>Welcome to</h5>
+                <h3>Ticket Management System</h3>
+                <span class="glyphicon glyphicon-user"></span>
+            </div>
+            {{ form_start(form, {'method': 'POST', 'action': path('login')}) }}
+                <div class="ContentForm">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-addon" id="sizing-addon1"><i class="glyphicon glyphicon-envelope"></i></span>
+                        <input type="email" class="form-control" name="email" placeholder="Email" id="email" aria-describedby="sizing-addon1" required>
+                    </div>
+                    <br>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-addon" id="sizing-addon1"><i class="glyphicon glyphicon-lock"></i></span>
+                        <input type="password" name="password" class="form-control" placeholder="******" aria-describedby="sizing-addon1" required>
+                    </div>
+                    <br>
+                    <button class="btn btn-lg btn-primary btn-block btn-signin" id="login" type="submit">Login</button>
+                </div>
+            {{ form_end(form) }}
+            {% for flashMessage in app.session.flashBag.get('danger') %}
+                <div class="alert alert-danger alert-dismissible" id="myAlertDanger">
+                    <a href="#" class="close">&times;</a>
+                    <strong>{{ flashMessage }}</strong>
+                </div>
+            {% endfor %}
+            </br>
+            <div class="text-center">
+                <a href="{{ path('user_new') }}"><strong>Register user</strong></a>
+            </div>
+        </div>
+        <script>
+            $(document).ready(function(){
+                $(".close").click(function(){
+                    $(".alert").alert("close");
+                });
+            });
+        </script>
+            {#function login(){#}
+                {#var email = $("#email").val();#}
+                {#var pass = $("#password").val();#}
+                {#$.ajax({#}
+                    {#type: "POST",#}
+                    {#url: Routing.generate('login', {email: email, password: pass})#}
+                {#}).done(function() {#}
+                    {#alert( "Datos grabados");})#}
+            {#}#}
+    </body>
+</html>

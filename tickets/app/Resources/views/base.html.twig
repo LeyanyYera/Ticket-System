@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+
+        <script type="text/javascript" src= {{ asset('node_modules/jquery/dist/jquery.min.js') }}></script>
+        <script type="text/javascript" src= {{ asset('node_modules/bootstrap/dist/js/bootstrap.min.js') }}></script>
+        <script type="text/javascript" src= {{ asset('node_modules/bootstrap/dist/js/bootstrap-dialog.js') }}></script>
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+
+        <link rel="stylesheet" type="text/css" href= {{ asset('node_modules/bootstrap/dist/css/bootstrap.min.css') }} />
+        <link rel="stylesheet" type="text/css" href= {{ asset('node_modules/bootstrap/dist/css/bootstrap-theme.min.css') }} />
+        <link rel="stylesheet" type="text/css" href= {{ asset('bundles/Ticket/template.css') }} />
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    {#<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">#}
+                        {#<span class="icon-bar"></span>#}
+                        {#<span class="icon-bar"></span>#}
+                        {#<span class="icon-bar"></span>#}
+                    {#</button>#}
+                    {#<picture src="logo.png" style="height:80px; width: 30px"></picture>#}
+                    {#<img src="logo.png" class="navbar-brand" alt="Mountain View" style="width:304px;height:228px;">#}
+                    {#<div style="background-image: url(logo.png);" class="img-responsive">#}
+                    {#<img src="logo.jpg" alt="Aqui va el logo de la empresa">#}
+                    {#<a class="navbar-brand" href="#">Ticket System</a>#}
+
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li id="ticket_option" class="active "><a onclick="activeTicketLi()" href="{{ path('ticket') }}">Tickets</a></li>
+                        <li id="user_option"><a onclick="activeUserLi()" href="{{ path('users') }}">Users</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="{{ path('logout') }}">{{ app.session.get('name') }}  <span class="glyphicon glyphicon-log-out"></span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container-fluid text-center">
+            <div class="row content">
+                <div class="col-sm-12 text-left">
+                    {% block navigation %}
+                        <div class="panel-heading pull-right" >
+                            <a class="glyphicon glyphicon-new-window icon-color" href="{{ path('ticket_new')}}"></a>
+                        </div>
+                    {% endblock %}
+                    <h4>{% block title_page %}{% endblock %}</h4>
+                    {% block body %}{% endblock %}
+                </div>
+                </div>
+            </div>
+        </div>
+        <footer class="container-fluid text-center">
+            <p>Leyany Yera Moya. © 2017</p>
+        </footer>
+        {% block javascripts %}
+            <script>
+                function activeTicketLi(){
+                    $("#user_option").removeClass('active');
+                    $("#ticket_option").addClass('active');
+                }
+                function activeUserLi(){
+                    $("#ticket_option").removeClass('active');
+                    $("#user_option").addClass('active');
+                }
+            </script>
+        {% endblock %}
+    </body>
+</html>

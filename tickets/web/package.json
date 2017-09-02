@@ -1,0 +1,11 @@
+{
+  "name": "ng-ley",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {},
+  "private": true,
+  "dependencies": {
+    "bootstrap-dialog": "^1.34.6"
+  },
+  "devDependencies": {}
+}

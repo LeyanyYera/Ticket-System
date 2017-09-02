@@ -1,0 +1,55 @@
+ticket:
+    path: /ticket
+    defaults: { _controller: TicketBundle:Ticket:getTickets }
+    options:
+            expose: true
+
+ticket_new:
+    path: /ticket_new
+    defaults: { _controller: TicketBundle:Ticket:newTicket}
+
+ticket_edit:
+    path: /ticket_edit/{id}
+    defaults: { _controller: TicketBundle:Ticket:editTicket}
+
+ticket_delete:
+    path: /ticket_delete/{id}
+    defaults: { _controller: TicketBundle:Ticket:deleteTicket}
+
+ticket_close:
+    path: /ticket_close/{id}
+    defaults: { _controller: TicketBundle:Ticket:closeTicket}
+
+ticket_assign:
+    path: /ticket_assign/{id}
+    defaults: { _controller: TicketBundle:Ticket:assignTicket}
+
+users:
+    path: /users
+    defaults: { _controller: TicketBundle:User:getUsers }
+
+user_validate:
+    path: /user_validate/{id}
+    defaults: { _controller: TicketBundle:User:validateUser }
+
+user_new:
+    path: /user_new
+    defaults: { _controller: TicketBundle:User:newUser }
+
+index:
+    path: /
+    defaults: { _controller: TicketBundle:User:index }
+
+login:
+    path: /login
+    defaults: { _controller: TicketBundle:User:login }
+
+logout:
+    path: /logout
+    defaults: { _controller: TicketBundle:User:logout }
+
+
+
+#app/config/routing.yml
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
