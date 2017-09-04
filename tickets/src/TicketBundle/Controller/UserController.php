@@ -61,7 +61,9 @@ class UserController extends Controller
                 }
                 else
                     $search = "";
-                $users = $em = $this->getDoctrine()->getManager()->getRepository("TicketBundle:TicketUser")->getUsers($param);
+                $query = $em = $this->getDoctrine()->getManager()->getRepository("TicketBundle:TicketUser")->getUsers($param);
+                $paginator = $this->get('knp_paginator');
+                $users = $paginator->paginate($query, $request->query->getInt('page', 1),5);
                 return $this->render('TicketBundle:User:index.html.twig', array(
                     'users' => $users, 'search'=>$search, 'form'=>$form->createView()));
             }

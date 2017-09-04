@@ -43,7 +43,9 @@ class TicketController extends Controller
                     $search = $data['search'];
                 else
                     $search = "";
-                $tickets = $em = $this->getDoctrine()->getManager()->getRepository("TicketBundle:Ticket")->getTickets($param);
+                $query = $em = $this->getDoctrine()->getManager()->getRepository("TicketBundle:Ticket")->getTickets($param);
+                $paginator = $this->get('knp_paginator');
+                $tickets = $paginator->paginate($query, $request->query->getInt('page', 1),5);
                 $status = $em = $this->getDoctrine()->getManager()->getRepository("TicketBundle:Status")->findAll();
                 return $this->render('TicketBundle:Ticket:index.html.twig', array(
                     'tickets' => $tickets, 'status'=>$status, 'selected'=>$selected, 'search'=>$search, 'form'=>$form->createView()));
@@ -196,12 +198,11 @@ class TicketController extends Controller
                 $param['valid'] = true;
                 if(isset($data['search']) && !empty($data['search']))
                     $param['name'] = $data['search'];
-
+                $param['assignee'] = $ticket->getAssignee()->getId();
                 $users = $em = $this->getDoctrine()->getManager()->getRepository("TicketBundle:TicketUser")->getUsers($param);
-
                 return $this->render('TicketBundle:Ticket:assign.html.twig', array(
                     'ticket' => $ticket,
-                    'id' => $ticket->getId(),
+//                    'id' => $ticket->getId(),
                     'users'=>$users,
                     'search'=>$search,
                     'form' => $form->createView()
@@ -230,14 +231,6 @@ class TicketController extends Controller
         return $user[0]->getValid();
     }
 
-    /**
-     * @param $data
-     * @param $user_logged
-     * @param $status_selected
-     * @param $date
-     * @param $assignee
-     * @param $em
-     */
     public function addTicket($data, $user_logged, $status_selected, $date, $assignee)
     {
         $em = $this->getDoctrine()->getManager();

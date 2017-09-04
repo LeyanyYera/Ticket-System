@@ -21,6 +21,9 @@ class TicketUserRepository extends \Doctrine\ORM\EntityRepository
         if(isset($param['valid']) && !empty($param['valid'])){
             $criteria->andWhere($exp->eq('ticket_user.valid', $param['valid']));
         }
+        if(isset($param['assignee']) && !empty($param['assignee'])){
+            $criteria->andWhere($exp->neq('ticket_user.id', $param['assignee']));
+        }
         $qb = $this->_em->createQueryBuilder();
         $qb ->from('TicketBundle:TicketUser', 'ticket_user')
             ->select ('ticket_user.id,

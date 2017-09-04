@@ -54,6 +54,9 @@
         {% endfor %}
         </tbody>
     </table>
+    <div class="pagination">
+        {{ knp_pagination_render(users) }}
+    </div>
     {{ form_end(form) }}
     <script>
         $(document).ready(function(){

@@ -48,8 +48,6 @@ logout:
     path: /logout
     defaults: { _controller: TicketBundle:User:logout }
 
-
-
 #app/config/routing.yml
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

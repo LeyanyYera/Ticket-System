@@ -14,7 +14,7 @@
             <strong>{{ flashMessage }}</strong>
         </div>
     {% endfor %}
-{{ form_start(form, {'method': 'POST', 'action': path('ticket_assign', {'id':id})}) }}
+{{ form_start(form, {'method': 'POST', 'action': path('ticket_assign', {'id':ticket.id})}) }}
     <div class="panel-heading form-inline">
         <div class="input-group col-sm-4">
             <input type="text" name="search" id="search" value="{{ search }}" class="form-control" placeholder="Name">
