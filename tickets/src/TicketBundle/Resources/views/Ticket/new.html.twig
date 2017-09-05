@@ -4,57 +4,59 @@
         <a class="glyphicon glyphicon-list" href="{{ path('ticket')}}"></a>
     </div>
 {% endblock %}
-  {% block title_page %}Create ticket{% endblock %}
+  {% block title_page %}<div class="panel-body">Create ticket<hr></div>{% endblock %}
 {% block body %}
-    {% for flashMessage in app.session.flashBag.get('notice') %}
-        <div class="alert alert-success alert-dismissible" id="myAlertNotice">
-            <a href="#" class="close">&times;</a>
-            <strong>{{ flashMessage }}</strong>
-        </div>
-    {% endfor %}
-    {% for flashMessage in app.session.flashBag.get('danger') %}
-        <div class="alert alert-danger alert-dismissible" id="myAlertDanger">
-            <a href="#" class="close">&times;</a>
-            <strong>{{ flashMessage }}</strong>
-        </div>
-    {% endfor %}
-    {{ form_start(form, {'method': 'POST', 'action': path('ticket_new')}) }}
-        <div class="form-group ">
-            <label>Title:<span class="text-danger required">*</span></label>
-            {{ form_widget(form.title, {'attr':{'class':'form-control'}})}}
-            <br/>
-            <label>Body:<span class="text-danger required">*</span></label>
-            {{ form_widget(form.body, {'attr':{'class':'form-control'}})}}
-            <br/>
-            <label>Assignee:<span class="text-danger required">*</span></label>
-            <select class="form-control" id="assignee" name="assignee">
-                {% for as in assignee %}
-                    {% if as.email == assignee_default %}
-                        <option id="{{ as.id }}" selected="selected">{{as.name}}</option>
-                    {% else %}
-                        <option id="{{ as.id }}" >{{as.name}}</option>
-                    {% endif %}
-                {% endfor %}
-            </select>
-            <br/>
-            <label>Status:<span class="text-danger required">*</span></label>
-            <select class="form-control" id="status" name="status">
-                {% for st in status %}
-                    {% if st.id == status_default %}
-                        <option id="{{ st.id }}" selected="selected">{{st.name}}</option>
-                    {% else %}
-                        <option id="{{ st.id }}" >{{st.name}}</option>
-                    {% endif %}
-                {% endfor %}
-            </select>
-        </div>
-        <input type="hidden" name="assignee_id" id="assignee_id">
-        <input type="hidden" name="status_id" id="status_id">
-        <div class="pull-right">
-            <input type="submit" value="Accept" class="btn btn-default">
-            <input type="button" id="cancel" value="Cancel" class="btn btn-default">
-        </div>
-    {{ form_end(form) }}
+    <div class="panel-body">
+        {% for flashMessage in app.session.flashBag.get('notice') %}
+            <div class="alert alert-success alert-dismissible" id="myAlertNotice">
+                <a href="#" class="close">&times;</a>
+                <strong>{{ flashMessage }}</strong>
+            </div>
+        {% endfor %}
+        {% for flashMessage in app.session.flashBag.get('danger') %}
+            <div class="alert alert-danger alert-dismissible" id="myAlertDanger">
+                <a href="#" class="close">&times;</a>
+                <strong>{{ flashMessage }}</strong>
+            </div>
+        {% endfor %}
+        {{ form_start(form, {'method': 'POST', 'action': path('ticket_new')}) }}
+            <div class="form-group ">
+                <label>Title:<span class="text-danger required">*</span></label>
+                {{ form_widget(form.title, {'attr':{'class':'form-control'}})}}
+                <br/>
+                <label>Body:<span class="text-danger required">*</span></label>
+                {{ form_widget(form.body, {'attr':{'class':'form-control'}})}}
+                <br/>
+                <label>Assignee:<span class="text-danger required">*</span></label>
+                <select class="form-control" id="assignee" name="assignee">
+                    {% for as in assignee %}
+                        {% if as.email == assignee_default %}
+                            <option id="{{ as.id }}" selected="selected">{{as.name}}</option>
+                        {% else %}
+                            <option id="{{ as.id }}" >{{as.name}}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                <br/>
+                <label>Status:<span class="text-danger required">*</span></label>
+                <select class="form-control" id="status" name="status">
+                    {% for st in status %}
+                        {% if st.id == status_default %}
+                            <option id="{{ st.id }}" selected="selected">{{st.name}}</option>
+                        {% else %}
+                            <option id="{{ st.id }}" >{{st.name}}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <input type="hidden" name="assignee_id" id="assignee_id">
+            <input type="hidden" name="status_id" id="status_id">
+            <div class="pull-right">
+                <input type="submit" value="Accept" class="btn btn-default">
+                <input type="button" id="cancel" value="Cancel" class="btn btn-default">
+            </div>
+        {{ form_end(form) }}
+    </div>
     <script>
         $(document).ready(function(){
             $("#assignee_id").val($("#assignee").find('option:selected').attr('id'));
