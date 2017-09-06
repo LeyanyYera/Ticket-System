@@ -1,38 +1,38 @@
 {% extends 'base.html.twig' %}
 {% block navigation %}
 {% endblock %}
-  {% block title_page %}<div class="panel-body">Register user<hr></div>{% endblock %}
+  {% block title_page %}Register user{% endblock %}
 {% block body %}
-    <div class="panel-body">
-        {% for flashMessage in app.session.flashBag.get('notice') %}
-            <div class="alert alert-success alert-dismissible" id="myAlertNotice">
-                <a href="#" class="close">&times;</a>
-                <strong>{{ flashMessage }}</strong>
-            </div>
-        {% endfor %}
-        {% for flashMessage in app.session.flashBag.get('danger') %}
-            <div class="alert alert-danger alert-dismissible" id="myAlertDanger">
-                <a href="#" class="close">&times;</a>
-                <strong>{{ flashMessage }}</strong>
-            </div>
-        {% endfor %}
-        {{ form_start(form, {'method': 'POST', 'action': path('user_new')}) }}
-        <div class="form-group ">
+    {% for flashMessage in app.session.flashBag.get('notice') %}
+        <div class="alert alert-success alert-dismissible" id="myAlertNotice">
+            <a href="#" class="close">&times;</a>
+            <strong>{{ flashMessage }}</strong>
+        </div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashBag.get('danger') %}
+        <div class="alert alert-danger alert-dismissible" id="myAlertDanger">
+            <a href="#" class="close">&times;</a>
+            <strong>{{ flashMessage }}</strong>
+        </div>
+    {% endfor %}
+    {{ form_start(form, {'method': 'POST', 'action': path('user_new')}) }}
+        <div class="col-sm-4">
             <label>Name:<span class="text-danger required">*</span></label>
             {{ form_widget(form.name, {'attr':{'class':'form-control'}})}}
-            <br/>
+        </div>
+        <div class="col-sm-4">
             <label>Email:<span class="text-danger required">*</span></label>
             {{ form_widget(form.email, {'attr':{'class':'form-control'}})}}
-            <br/>
+        </div>
+        <div class="col-sm-4">
             <label>Password:<span class="text-danger required">*</span></label>
             {{ form_widget(form.password, {'attr':{'class':'form-control'}})}}
         </div>
-        <div class="pull-right">
+        <div class="form-control-static pull-right" style="padding:20px 15px 0 0">
             <input type="submit" value="Accept" class="btn btn-default">
             <input type="button" value="Cancel" id="cancel" class="btn btn-default">
         </div>
-        {{ form_end(form) }}
-    </div>
+    {{ form_end(form) }}
     <script>
         $(document).ready(function(){
             $(".close").click(function(){

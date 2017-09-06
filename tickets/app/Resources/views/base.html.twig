@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8" />
+        <meta charset="UTF-8" content="width=device-width, initial-scale=1"/>
+
         <title>{% block title %}Welcome!{% endblock %}</title>
 
         <script type="text/javascript" src= {{ asset('node_modules/jquery/dist/jquery.min.js') }}></script>
@@ -31,7 +32,8 @@
                 </div>
             </div>
         </nav>
-        <div class="container-fluid text-center">
+
+        <div class="container text-center">
             <div class="row content">
                 <div class="col-sm-12 text-left">
                     {% block navigation %}
@@ -39,15 +41,16 @@
                             <a class="glyphicon glyphicon-new-window icon-color" href="{{ path('ticket_new')}}"></a>
                         </div>
                     {% endblock %}
-                    <h4>{% block title_page %}{% endblock %}</h4>
+                    <h4><div class="form-component">{% block title_page %}{% endblock %}<hr></div></h4>
                     {% block body %}{% endblock %}
                 </div>
                 </div>
             </div>
-        </div>
-        <footer class="container-fluid text-center">
-            <p>Leyany Yera Moya. © 2017</p>
+
+        <footer class="container-fluid text-center" style="background-color: #bababa; color: #777">
+            <strong><p>Leyany Yera Moya. © 2017<br>Todos los derechos reservados</p></strong>
         </footer>
+
         {% block javascripts %}
             <script>
                 function activeTicketLi(){

@@ -1,22 +1,24 @@
 {% extends 'base.html.twig' %}
+
 {% block navigation %}{% endblock %}
-{% block title_page %}<div class="panel-body">Users list</div>{% endblock %}
+
+{% block title_page %}Users list{% endblock %}
+
 {% block body %}
-    <div class="panel-body">
-        {% for flashMessage in app.session.flashBag.get('notice') %}
-            <div class="alert alert-success alert-dismissible" id="myAlertNotice">
-                <a href="#" class="close">&times;</a>
-                <strong>{{ flashMessage }}</strong>
-            </div>
-        {% endfor %}
-        {% for flashMessage in app.session.flashBag.get('danger') %}
-            <div class="alert alert-danger alert-dismissible" id="myAlertDanger">
-                <a href="#" class="close">&times;</a>
-                <strong>{{ flashMessage }}</strong>
-            </div>
-        {% endfor %}
-        {{ form_start(form, {'method': 'POST', 'action': path('users')}) }}
-        <div class="panel form-inline">
+    {% for flashMessage in app.session.flashBag.get('notice') %}
+        <div class="alert alert-success alert-dismissible" id="myAlertNotice">
+            <a href="#" class="close">&times;</a>
+            <strong>{{ flashMessage }}</strong>
+        </div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashBag.get('danger') %}
+        <div class="alert alert-danger alert-dismissible" id="myAlertDanger">
+            <a href="#" class="close">&times;</a>
+            <strong>{{ flashMessage }}</strong>
+        </div>
+    {% endfor %}
+    {{ form_start(form, {'method': 'POST', 'action': path('users')}) }}
+        <div class="form-inline form-component">
             <div class="input-group col-sm-4">
                 <input type="text" name="search" value="{{ search }}" class="form-control" placeholder="Name"/>
                 <div class="input-group-btn">
@@ -26,40 +28,41 @@
                 </div>
             </div>
         </div>
-        <table id="users" class="table table-striped table-bordered table-responsive table-hover">
-            <thead>
-            <tr class="tr-head">
-                <th>Name</th><th>Email</th><th>Valid</th><th>Options</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for user in users %}
-                <tr>
-                    <td>{{ user.name }}</td>
-                    <td>{{ user.email }}</td>
-                    {% if user.valid == 1 %}
-                        <td>Yes</td>
-                    {% else %}
-                        <td>No</td>
-                    {% endif %}
-                    <td style="width: 10%">
-                        <div class="btn-block">
-                            {% if (user.valid) %}
-                                <span title="User valid" class="glyphicon glyphicon-check icon-color"></span>
-                            {% else %}
-                                <a title="Validate user" class="glyphicon glyphicon-ok icon-color" href="{{ path('user_validate', {'id':user.id})}}"></a>
-                            {% endif %}
-                        </div>
-                    </td>
+        <div class="form-component">
+            <table id="users" class="table table-striped table-bordered table-responsive table-hover">
+                <thead>
+                <tr class="tr-head">
+                    <th>Name</th><th>Email</th><th>Valid</th><th>Options</th>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-        <div class="pagination">
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.email }}</td>
+                        {% if user.valid == 1 %}
+                            <td>Yes</td>
+                        {% else %}
+                            <td>No</td>
+                        {% endif %}
+                        <td style="width: 10%">
+                            <div class="btn-block">
+                                {% if (user.valid) %}
+                                    <span title="User valid" class="glyphicon glyphicon-check icon-color"></span>
+                                {% else %}
+                                    <a title="Validate user" class="glyphicon glyphicon-ok icon-color" href="{{ path('user_validate', {'id':user.id})}}"></a>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="text-center">
             {{ knp_pagination_render(users) }}
         </div>
-        {{ form_end(form) }}
-    </div>
+    {{ form_end(form) }}
     <script>
         $(document).ready(function(){
             $(".close").click(function(){
