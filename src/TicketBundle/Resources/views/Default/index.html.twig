@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+    <head>
+        <meta charset="UTF-8" content="width=device-width, initial-scale=1"/>
+        <title>{% block title %}Welcome!{% endblock %}</title>
+
+        <script type="text/javascript" src= {{ asset('node_modules/jquery/dist/jquery.min.js') }}></script>
+        <script type="text/javascript" src= {{ asset('node_modules/bootstrap/dist/js/bootstrap.min.js') }}></script>
+
+        <link rel="stylesheet" type="text/css" href= {{ asset('node_modules/bootstrap/dist/css/bootstrap.min.css') }} />
+        <link rel="stylesheet" type="text/css" href= {{ asset('node_modules/bootstrap/dist/css/bootstrap-theme.min.css') }} />
+        <link rel="stylesheet" type="text/css" href= {{ asset('bundles/Ticket/template.css') }} />
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        <div class="inner-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-4 form-box">
+                    <div class="form-top" style="background-color: #337AB7; color: white">
+                        <div class="form-top-left">
+                            <strong><p>Welcome to</p></strong>
+                            <h3 class="text-login">Ticket System</h3>
+                        </div>
+                        <div class="form-top-right">
+                            <i class="glyphicon glyphicon-user small"></i>
+                        </div>
+                    </div>
+                    <div class="form-bottom">
+                        {% for flashMessage in app.session.flashBag.get('danger') %}
+                            <div class="alert alert-danger alert-dismissible" id="myAlertDanger">
+                                <a href="#" class="close">&times;</a>
+                                <strong>{{ flashMessage }}</strong>
+                            </div>
+                        {% endfor %}
+                        {{ form_start(form, {'method': 'POST', 'action': path('login')}) }}
+                            <div class="input-group input-group-sm" style="padding-bottom: 20px">
+                                <span class="input-group-addon" id="sizing-addon1"><i class="glyphicon glyphicon-envelope"></i></span>
+                                <input type="email" class="form-control" name="email" placeholder="Email" id="email" aria-describedby="sizing-addon1" required>
+                            </div>
+                            <div class="input-group input-group-sm" style="padding-bottom: 20px">
+                                <span class="input-group-addon" id="sizing-addon1"><i class="glyphicon glyphicon-lock"></i></span>
+                                <input type="password" name="password" class="form-control" placeholder="******" aria-describedby="sizing-addon1" required>
+                            </div>
+                            <button class="btn btn-sm btn-primary btn-block" type="submit">Login</button>
+                            <div style="padding-top: 20px">
+                                <div style="border-top: 1px solid#888; padding-top:15px; font-size:100%" >
+                                    Don't have an account!
+                                    <a href="{{ path('user_new') }}">Sign Up Here</a>
+                                </div>
+                            </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {#<div class="panel panel-default" style="position: absolute; left: 35%; top: 50%; width: 30%; height: 40%">#}
+                {#<strong><div class="panel" style="height: 15%; background-color: #337AB7;">#}
+                        {#<span class="panel-heading pull-left" style="font-size: medium; color: white">Sign In</span>#}
+                    {#</div></strong>#}
+                {#{% for flashMessage in app.session.flashBag.get('danger') %}#}
+                    {#<div class="alert alert-danger alert-dismissible" id="myAlertDanger">#}
+                        {#<a href="#" class="close">&times;</a>#}
+                        {#<strong>{{ flashMessage }}</strong>#}
+                    {#</div>#}
+                {#{% endfor %}#}
+                {#<div class="panel-body">#}
+                    {#{{ form_start(form, {'method': 'POST', 'action': path('login')}) }}#}
+                    {#<div class="ContentForm">#}
+                        {#<div class="input-group input-group-sm">#}
+                            {#<span class="input-group-addon" id="sizing-addon1"><i class="glyphicon glyphicon-envelope"></i></span>#}
+                            {#<input type="email" class="form-control" name="email" placeholder="Email" id="email" aria-describedby="sizing-addon1" required>#}
+                        {#</div>#}
+                        {#<br><br>#}
+                        {#<div class="input-group input-group-sm">#}
+                            {#<span class="input-group-addon" id="sizing-addon1"><i class="glyphicon glyphicon-lock"></i></span>#}
+                            {#<input type="password" name="password" class="form-control" placeholder="******" aria-describedby="sizing-addon1" required>#}
+                        {#</div>#}
+                        {#<br>#}
+                        {#<button class="btn btn-sm btn-primary pull-right" type="submit">Login</button>#}
+                    {#</div>#}
+                    {#<br><br><br>#}
+                    {#<strong><div style="border-top: 1px solid#888; padding-top:15px; font-size:100%" >#}
+                            {#Don't have an account!#}
+                            {#<a href="{{ path('user_new') }}">Sign Up Here</a>#}
+                        {#</div></strong>#}
+                    {#{{ form_end(form) }}#}
+                {#</div>#}
+            {#</div>#}
+
+
+
+
+
+
+
+        <script>
+            $(document).ready(function(){
+                $(".close").click(function(){
+                    $(".alert").alert("close");
+                });
+            });
+        </script>
+    </body>
+</html>

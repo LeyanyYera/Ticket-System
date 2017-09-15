@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" content="width=device-width, initial-scale=1"/>
+
+        <title>{% block title %}Welcome!{% endblock %}</title>
+
+        <script type="text/javascript" src= {{ asset('node_modules/jquery/dist/jquery.min.js') }}></script>
+        <script type="text/javascript" src= {{ asset('node_modules/bootstrap/dist/js/bootstrap.min.js') }}></script>
+        <script type="text/javascript" src= {{ asset('node_modules/bootstrap/dist/js/bootstrap-dialog.js') }}></script>
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+
+        <link rel="stylesheet" type="text/css" href= {{ asset('node_modules/bootstrap/dist/css/bootstrap.min.css') }} />
+        <link rel="stylesheet" type="text/css" href= {{ asset('node_modules/bootstrap/dist/css/bootstrap-theme.min.css') }} />
+        <link rel="stylesheet" type="text/css" href= {{ asset('bundles/Ticket/template.css') }} />
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+        <nav class="navbar" style="background-color: #337AB7">
+            <div class="container-fluid" >
+                <div class="navbar-header" style="margin-left: 90px">
+                    <a style="color: white" class="navbar-brand" href="{{ path('ticket') }}">Ticket System</a>
+                </div>
+                <ul class="nav navbar-nav" >
+                    <li class="dropdown" id="menu-tickets"><a class="dropdown-toggle" data-toggle="dropdown" href="#" >Tickets<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ path('ticket') }}" >List</a></li>
+                            <li><a href="{{ path('ticket_new') }}" >New</a></li>
+                        </ul>
+                    </li>
+                    <li id="menu-users"><a href="{{ path('users') }}">Users</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right" style="margin-right: 90px">
+                    <li>
+                        <a data-toggle="dropdown" href="#" >
+                            <span style="margin-right: 2px" class="glyphicon glyphicon-user"></span>{{ app.session.get('name') }}<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ path('logout') }}" >Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="container text-center" style="background-color: #eeeeee">
+            <div class="row content">
+                {% for flashMessage in app.session.flashBag.get('notice') %}
+                    <div class="alert alert-success" id="myAlertNotice">
+                        <a href="#" class="close">&times;</a>
+                        <strong>{{ flashMessage }}</strong>
+                    </div>
+                {% endfor %}
+
+                {% for flashMessage in app.session.flashBag.get('danger') %}
+                    <div class="alert alert-danger" id="myAlertDanger" style="margin:0 120px 0 120px">
+                        <a href="#" class="close">&times;</a>
+                        <strong>{{ flashMessage }}</strong>
+                    </div>
+                {% endfor %}
+                <div class="col-sm-12 text-left">
+
+                    {% block navigation %}{% endblock %}
+
+                    <h4><div class="page-title">{% block title_page %}{% endblock %}</div></h4>
+
+                    {% block body %}{% endblock %}
+                </div>
+            </div>
+        </div>
+
+        <footer class="container-fluid text-center" style="background-color: #337AB7">
+            <strong><p style="color: white">Leyany Yera Moya. © 2017<br>Todos los derechos reservados</p></strong>
+        </footer>
+
+        {% block javascripts %}
+            <script>
+                $(document).ready(function(){
+                    $(".close").click(function(){
+                        $(".alert").alert("close");
+                    });
+                });
+            </script>
+        {% endblock %}
+    </body>
+</html>

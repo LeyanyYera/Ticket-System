@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" content="width=device-width, initial-scale=1"/>
+
+        <title>{% block title %}Welcome!{% endblock %}</title>
+
+        <script type="text/javascript" src= {{ asset('node_modules/jquery/dist/jquery.min.js') }}></script>
+        <script type="text/javascript" src= {{ asset('node_modules/bootstrap/dist/js/bootstrap.min.js') }}></script>
+        <script type="text/javascript" src= {{ asset('node_modules/bootstrap/dist/js/bootstrap-dialog.js') }}></script>
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+
+        <link rel="stylesheet" type="text/css" href= {{ asset('node_modules/bootstrap/dist/css/bootstrap.min.css') }} />
+        <link rel="stylesheet" type="text/css" href= {{ asset('node_modules/bootstrap/dist/css/bootstrap-theme.min.css') }} />
+        <link rel="stylesheet" type="text/css" href= {{ asset('bundles/Ticket/template.css') }} />
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+    <nav class="navbar" id="test" style="background-color: #f5f5f5">
+        <div class="container-fluid" >
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{{ path('ticket') }}">Ticket System</a>
+            </div>
+        </div>
+    </nav>
+
+    {% for flashMessage in app.session.flashBag.get('notice') %}
+        <div class="alert alert-success" id="myAlertNotice" style="margin:0 120px 0 120px">
+            <a href="#" class="close">&times;</a>
+            <strong>{{ flashMessage }}</strong>
+        </div>
+    {% endfor %}
+
+    {% for flashMessage in app.session.flashBag.get('danger') %}
+        <div class="alert alert-danger" id="myAlertDanger" style="margin:0 120px 0 120px">
+            <a href="#" class="close">&times;</a>
+            <strong>{{ flashMessage }}</strong>
+        </div>
+    {% endfor %}
+
+    <div class="container text-center">
+        <div class="row content">
+            <div class="col-sm-12 text-left">
+                {% block navigation %}{% endblock %}
+                <h4><div class="form-component">{% block title_page %}Register user{% endblock %}<hr></div></h4>
+                {% block body %}
+                    {{ form_start(form, {'method': 'POST', 'action': path('user_new')}) }}
+                        <div class="col-sm-4">
+                            <label>Name:<span class="text-danger required">*</span></label>
+                            {{ form_widget(form.name, {'attr':{'class':'form-control'}})}}
+                        </div>
+                        <div class="col-sm-4">
+                            <label>Email:<span class="text-danger required">*</span></label>
+                            {{ form_widget(form.email, {'attr':{'class':'form-control'}})}}
+                        </div>
+                        <div class="col-sm-4">
+                            <label>Password:<span class="text-danger required">*</span></label>
+                            {{ form_widget(form.password, {'attr':{'class':'form-control'}})}}
+                        </div>
+                        <div class="form-control-static pull-right" style="padding:20px 15px 0 0">
+                            <input type="submit" value="Accept" class="btn btn-default">
+                            <input type="button" value="Cancel" id="cancel" class="btn btn-default">
+                        </div>
+                    {{ form_end(form) }}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+    <footer class="container-fluid text-center" style="background-color: #F5F5F5">
+        <strong><p style="color: #337AB7">Leyany Yera Moya. © 2017<br>Todos los derechos reservados</p></strong>
+    </footer>
+
+    {% block javascripts %}
+        <script>
+            $(document).ready(function(){
+                $(".close").click(function(){
+                    $(".alert").alert("close");
+                });
+                $("#cancel").click(function(){
+                    BootstrapDialog.show({
+                        title: 'Confirm',
+                        message: 'Are you sure want cancel?',
+                        buttons: [{
+                            label: 'Accept',
+                            action: function(dialog) {
+                                $('body').load(Routing.generate('ticket'));
+                            }
+                        }, {
+                            label: 'Cancel',
+                            action: function(dialog) {
+                                dialog.close();
+                            }
+                        }]
+                    });
+                });
+            });
+        </script>
+    {% endblock %}
+    </body>
+</html>

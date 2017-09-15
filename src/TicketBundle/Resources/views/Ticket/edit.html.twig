@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block navigation %}
+    <div class="panel-heading pull-right" xmlns="http://www.w3.org/1999/html">
+        <a class="glyphicon glyphicon-list" href="{{ path('ticket')}}"></a>
+    </div>
+{% endblock %}
+
+{% block title_page %}Edit ticket{% endblock %}
+
+{% block body %}
+    {% for flashMessage in app.session.flashBag.get('notice') %}
+        <div class="alert alert-success alert-dismissible" id="myAlert">
+            <a href="#" class="close">&times;</a>
+            <strong>{{ flashMessage }}</strong>
+        </div>
+    {% endfor %}
+    {{ form_start(form, {'method': 'POST', 'action': path('ticket_edit', {'id':id})}) }}
+        <div class="col-sm-4">
+            <label>Title:<span class="text-danger required">*</span></label>
+            {{ form_widget(form.title, {'attr':{'class':'form-control'}})}}
+        </div>
+        <div class="col-sm-12">
+            <label>Body:<span class="text-danger required">*</span></label>
+            {{ form_widget(form.body, {'attr':{'class':'form-control'}})}}
+        </div>
+        <div class="form-control-static pull-right" style="padding:20px 15px 0 0">
+            <input type="submit" value="Accept" class="btn btn-default">
+            <input type="button" id="cancel" value="Cancel" class="btn btn-default">
+        </div>
+    {{ form_end(form) }}
+    <script>
+        $(document).ready(function(){
+            $(".close").click(function(){
+                $("#myAlert").alert("close");
+            });
+            $("#cancel").click(function(){
+                BootstrapDialog.show({
+                    title: 'Confirm',
+                    message: 'Are you sure want cancel?',
+                    buttons: [{
+                        label: 'Accept',
+                        action: function(dialog) {
+                            $('body').load(Routing.generate('ticket'));
+//                            $(location).attr('href', Routing.generate('ticket'));
+                        }
+                    }, {
+                        label: 'Cancel',
+                        action: function(dialog) {
+                            dialog.close();
+                        }
+                    }]
+                });
+            });
+        });
+    </script>
+{% endblock %}
