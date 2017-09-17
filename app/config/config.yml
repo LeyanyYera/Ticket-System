@@ -3,7 +3,6 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: "@TicketBundle/Resources/config/services.yml" }
-    - { resource: "@BaseBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -61,7 +60,7 @@ doctrine:
         auto_mapping: true
         dql:
             string_functions:
-                to_char: TicketBundle\Entity\to_char
+                to_char: TicketBundle\Services\To_char
 
 # Swiftmailer Configuration
 swiftmailer:

@@ -18,59 +18,59 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-    <nav class="navbar" id="test" style="background-color: #f5f5f5">
+        <nav class="navbar" style="background-color: #337AB7">
         <div class="container-fluid" >
-            <div class="navbar-header">
-                <a class="navbar-brand" href="{{ path('ticket') }}">Ticket System</a>
+            <div class="navbar-header" style="margin-left: 90px">
+                <a style="color: white" class="navbar-brand" href="{{ path('ticket') }}">Ticket System</a>
             </div>
+            <ul class="nav navbar-nav" >
+                <li id="menu-users"><a href="{{ path('users') }}">Users</a></li>
+            </ul>
         </div>
     </nav>
 
-    {% for flashMessage in app.session.flashBag.get('notice') %}
-        <div class="alert alert-success" id="myAlertNotice" style="margin:0 120px 0 120px">
-            <a href="#" class="close">&times;</a>
-            <strong>{{ flashMessage }}</strong>
-        </div>
-    {% endfor %}
+        {% for flashMessage in app.session.flashBag.get('notice') %}
+            <div class="alert alert-success" id="myAlertNotice" style="margin:0 120px 0 120px">
+                <a href="#" class="close">&times;</a>
+                <strong>{{ flashMessage }}</strong>
+            </div>
+        {% endfor %}
 
-    {% for flashMessage in app.session.flashBag.get('danger') %}
+        {% for flashMessage in app.session.flashBag.get('danger') %}
         <div class="alert alert-danger" id="myAlertDanger" style="margin:0 120px 0 120px">
             <a href="#" class="close">&times;</a>
             <strong>{{ flashMessage }}</strong>
         </div>
     {% endfor %}
 
-    <div class="container text-center">
-        <div class="row content">
-            <div class="col-sm-12 text-left">
-                {% block navigation %}{% endblock %}
-                <h4><div class="form-component">{% block title_page %}Register user{% endblock %}<hr></div></h4>
-                {% block body %}
-                    {{ form_start(form, {'method': 'POST', 'action': path('user_new')}) }}
-                        <div class="col-sm-4">
-                            <label>Name:<span class="text-danger required">*</span></label>
-                            {{ form_widget(form.name, {'attr':{'class':'form-control'}})}}
-                        </div>
-                        <div class="col-sm-4">
-                            <label>Email:<span class="text-danger required">*</span></label>
-                            {{ form_widget(form.email, {'attr':{'class':'form-control'}})}}
-                        </div>
-                        <div class="col-sm-4">
-                            <label>Password:<span class="text-danger required">*</span></label>
-                            {{ form_widget(form.password, {'attr':{'class':'form-control'}})}}
-                        </div>
-                        <div class="form-control-static pull-right" style="padding:20px 15px 0 0">
-                            <input type="submit" value="Accept" class="btn btn-default">
-                            <input type="button" value="Cancel" id="cancel" class="btn btn-default">
-                        </div>
-                    {{ form_end(form) }}
-                {% endblock %}
+        <div class="container text-center" style="background-color: #eeeeee">
+            <div class="row content">
+                <div class="col-sm-12 text-left">
+                    {% block navigation %}{% endblock %}
+                    <h4><div class="page-title">{% block title_page %}Register user{% endblock %}</div></h4>
+                    {% block body %}
+                        {{ form_start(form, {'method': 'POST', 'action': path('user_new')}) }}
+                            <div class="col-sm-4">
+                                <label>Name:<span class="text-danger required">*</span></label>
+                                {{ form_widget(form.name, {'attr':{'class':'form-control'}})}}
+                            </div>
+                            <div class="col-sm-4">
+                                <label>Email:<span class="text-danger required">*</span></label>
+                                {{ form_widget(form.email, {'attr':{'class':'form-control'}})}}
+                            </div>
+                            <div class="col-sm-4">
+                                <label>Password:<span class="text-danger required">*</span></label>
+                                {{ form_widget(form.password, {'attr':{'class':'form-control'}})}}
+                            </div>
+                            {{ generateButtonBar() | raw}}
+                        {{ form_end(form) }}
+                    {% endblock %}
+                </div>
             </div>
         </div>
-    </div>
 
-    <footer class="container-fluid text-center" style="background-color: #F5F5F5">
-        <strong><p style="color: #337AB7">Leyany Yera Moya. © 2017<br>Todos los derechos reservados</p></strong>
+    <footer class="container-fluid text-center" style="background-color: #337AB7">
+        <strong><p style="color: white">Leyany Yera Moya. © 2017<br>Todos los derechos reservados</p></strong>
     </footer>
 
     {% block javascripts %}

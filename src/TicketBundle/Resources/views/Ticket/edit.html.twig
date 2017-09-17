@@ -24,10 +24,7 @@
             <label>Body:<span class="text-danger required">*</span></label>
             {{ form_widget(form.body, {'attr':{'class':'form-control'}})}}
         </div>
-        <div class="form-control-static pull-right" style="padding:20px 15px 0 0">
-            <input type="submit" value="Accept" class="btn btn-default">
-            <input type="button" id="cancel" value="Cancel" class="btn btn-default">
-        </div>
+        {{ generateButtonBar() | raw}}
     {{ form_end(form) }}
     <script>
         $(document).ready(function(){

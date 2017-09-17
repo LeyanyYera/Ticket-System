@@ -2,7 +2,7 @@
 
 namespace TicketBundle\Repository;
 use Doctrine\Common\Collections\Criteria;
-use TicketBundle\Entity\to_char;
+use TicketBundle\Services\To_char;
 
 /**
  * TicketRepository

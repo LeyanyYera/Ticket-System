@@ -14,7 +14,7 @@ use TicketBundle\Entity\TicketUser;
 use TicketBundle\Form\TicketType;
 use BaseBundle\Controller\BaseController;
 
-class TicketController extends BaseController
+class TicketController extends Controller
 {
     public function getTicketsAction(Request $request){
         if($this->checkLogin($request)){

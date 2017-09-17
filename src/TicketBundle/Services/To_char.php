@@ -1,11 +1,11 @@
 <?php
 
-namespace TicketBundle\Entity;
+namespace TicketBundle\Services;
 
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
 use Doctrine\ORM\Query\Lexer;
 
-class to_char extends FunctionNode {
+class To_char extends FunctionNode {
 
     public $date = null;
     public $format = null;

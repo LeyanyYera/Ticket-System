@@ -7,7 +7,7 @@ ticket:
     path: /ticket
     defaults: { _controller: TicketBundle:Ticket:getTickets }
     options:
-            expose: true
+        expose: true
 
 ticket_new:
     path: /ticket_new

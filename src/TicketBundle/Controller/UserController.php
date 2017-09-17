@@ -122,7 +122,7 @@ class UserController extends Controller
                 $user->setRole('default');
                 $em->persist($user);
                 $em->flush();
-                $this->addFlash('notice', 'Ticket created success');
+                $this->addFlash('notice', 'User created success');
             }
             return $this->getUsersAction($request);
         }
