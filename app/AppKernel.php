@@ -18,8 +18,7 @@ class AppKernel extends Kernel
             new AppBundle\AppBundle(),
             new TicketBundle\TicketBundle(),
             new \FOS\JsRoutingBundle\FOSJsRoutingBundle(),
-            new \Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
-            new BaseBundle\BaseBundle(),
+            new \Knp\Bundle\PaginatorBundle\KnpPaginatorBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
