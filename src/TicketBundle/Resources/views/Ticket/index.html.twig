@@ -43,7 +43,9 @@
                         <td style="width: 10%">
                             <div class="btn-block">
                                 <a class="glyphicon glyphicon-edit icon-color" title="Edit ticket" href="{{ path('ticket_edit', {'id':ticket.id})}}"></a>
-                                <a class="glyphicon glyphicon-minus icon-color" title="Delete ticket" href="{{ path('ticket_delete', {'id':ticket.id})}}"></a>
+                                {#<a class="glyphicon glyphicon-minus icon-color" title="Delete ticket" href="{{ path('ticket_delete', {'id':ticket.id})}}"></a>#}
+                                <a class="glyphicon glyphicon-minus icon-color" title="Delete ticket" href=""
+                                   id="del_ticket"></a>
                                 <a class="glyphicon glyphicon-remove icon-color" title="Close ticket" href="{{ path('ticket_close', {'id':ticket.id})}}"></a>
                                 <a class="glyphicon glyphicon-user icon-color" title="Assign ticket" href="{{ path('ticket_assign', {'id':ticket.id})}}"></a>
                             </div>
@@ -67,6 +69,23 @@
                 $("#selected").val($(this).children(":selected").attr("id"));
                 $("form").submit();
             });
+//            $("#del_ticket").click(function(){
+//                BootstrapDialog.show({
+//                    title: 'Confirm',
+//                    message: 'Are you sure want cancel?',
+//                    buttons: [{
+//                        label: 'Accept',
+//                        action: function(dialog) {
+//                            $('body').load(Routing.generate('index'));
+//                        }
+//                    }, {
+//                        label: 'Cancel',
+//                        action: function(dialog) {
+//                            dialog.close();
+//                        }
+//                    }]
+//                });
+//            });
         });
     </script>
 {% endblock %}

@@ -20,6 +20,8 @@ ticket_edit:
 ticket_delete:
     path: /ticket_delete/{id}
     defaults: { _controller: TicketBundle:Ticket:deleteTicket}
+    options:
+        expose: true
 
 ticket_close:
     path: /ticket_close/{id}
@@ -43,15 +45,17 @@ user_new:
 
 index:
     path: /
-    defaults: { _controller: TicketBundle:User:index }
+    defaults: { _controller: TicketBundle:Default:index }
+    options:
+        expose: true
 
 login:
     path: /login
-    defaults: { _controller: TicketBundle:User:login }
+    defaults: { _controller: TicketBundle:Default:login }
 
 logout:
     path: /logout
-    defaults: { _controller: TicketBundle:User:logout }
+    defaults: { _controller: TicketBundle:Default:logout }
 
 #app/config/routing.yml
 fos_js_routing:

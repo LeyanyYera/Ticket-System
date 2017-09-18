@@ -19,15 +19,15 @@
     </head>
     <body>
         <nav class="navbar" style="background-color: #337AB7">
-        <div class="container-fluid" >
-            <div class="navbar-header" style="margin-left: 90px">
-                <a style="color: white" class="navbar-brand" href="{{ path('ticket') }}">Ticket System</a>
+            <div class="container-fluid">
+                <div class="navbar-header" style="margin-left: 90px">
+                    <a style="color: white" class="navbar-brand" href="{{ path('ticket') }}">Ticket System</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li id="menu-users"><a href="{{ path('users') }}">Users</a></li>
+                </ul>
             </div>
-            <ul class="nav navbar-nav" >
-                <li id="menu-users"><a href="{{ path('users') }}">Users</a></li>
-            </ul>
-        </div>
-    </nav>
+        </nav>
 
         {% for flashMessage in app.session.flashBag.get('notice') %}
             <div class="alert alert-success" id="myAlertNotice" style="margin:0 120px 0 120px">
@@ -86,7 +86,7 @@
                         buttons: [{
                             label: 'Accept',
                             action: function(dialog) {
-                                $('body').load(Routing.generate('ticket'));
+                                $('body').load(Routing.generate('index'));
                             }
                         }, {
                             label: 'Cancel',

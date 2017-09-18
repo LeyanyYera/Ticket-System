@@ -34,21 +34,26 @@
                             </div>
                         {% endfor %}
                         {{ form_start(form, {'method': 'POST', 'action': path('login')}) }}
+
                             <div class="input-group input-group-sm" style="padding-bottom: 20px">
                                 <span class="input-group-addon" id="sizing-addon1"><i class="glyphicon glyphicon-envelope"></i></span>
-                                <input type="email" class="form-control" name="email" placeholder="Email" id="email" aria-describedby="sizing-addon1" required>
+                                {{ form_widget(form.email, {'attr':{'class':'form-control','placeholder':'email' }})}}
                             </div>
-                            <div class="input-group input-group-sm" style="padding-bottom: 20px">
+
+                        <div class="input-group input-group-sm" style="padding-bottom: 20px">
                                 <span class="input-group-addon" id="sizing-addon1"><i class="glyphicon glyphicon-lock"></i></span>
-                                <input type="password" name="password" class="form-control" placeholder="******" aria-describedby="sizing-addon1" required>
+                            {{ form_widget(form.password, {'attr':{'class':'form-control','placeholder':'password' }})}}
                             </div>
-                            <button class="btn btn-sm btn-primary btn-block" type="submit">Login</button>
-                            <div style="padding-top: 20px">
+
+                        <button class="btn btn-sm btn-primary btn-block" type="submit">Login</button>
+
+                        <div style="padding-top: 20px">
                                 <div style="border-top: 1px solid#888; padding-top:15px; font-size:100%" >
                                     Don't have an account!
                                     <a href="{{ path('user_new') }}">Sign Up Here</a>
                                 </div>
                             </div>
+
                         {{ form_end(form) }}
                     </div>
                 </div>

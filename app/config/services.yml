@@ -13,3 +13,8 @@ services:
         public: true
         tags:
             - {name: twig.extension}
+
+    app.auth:
+        class: TicketBundle\Services\Auth
+        public: true
+        arguments: ["@doctrine.orm.entity_manager", "@router"]
