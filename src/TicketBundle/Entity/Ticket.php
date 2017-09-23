@@ -65,6 +65,7 @@ class Ticket
      *
      * @ORM\Column(name="created", type="date")
      */
+
     private $created;
 
 

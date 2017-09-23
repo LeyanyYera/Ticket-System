@@ -21,7 +21,12 @@ class DefaultController extends Controller
     public function loginAction(Request $request)
     {
         $this->get('app.auth')->login($request);
-        return $this->redirect($this->generateUrl('ticket'));
+        if($this->get('app.auth')->checkLogin($request)){
+            return $this->redirect($this->generateUrl('ticket'));
+        }
+        else{
+            return $this->redirectToRoute('index');
+        }
     }
 
     public function logoutAction(Request $request)
@@ -29,6 +34,10 @@ class DefaultController extends Controller
         $session = $request->getSession();
         $session->clear();
         return $this->redirect($this->generateUrl('index'));
+    }
+
+    public function langAction(){
+        return $this->redirectToRoute('ticket');
     }
 
 }

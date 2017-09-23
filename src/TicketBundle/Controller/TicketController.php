@@ -10,6 +10,11 @@ use TicketBundle\Form\TicketType;
 class TicketController extends Controller
 {
     public function getTicketsAction(Request $request){
+
+//        var_dump($locale = $request->getLocale());
+//        var_dump($request->attributes->get('_locale'));
+//        var_dump($this->get('translator')->trans('system_name'));
+
         $auth = $this->get('app.auth')->checkLogin($request);
         $valid = $this->get('app.auth')->checkUserValid($request);
         if ($auth && $valid) {
@@ -173,7 +178,9 @@ class TicketController extends Controller
                     $em->persist($ticket);
                     $em->flush();
                     $this->addFlash('notice', 'Assignee changed success');
+//                    return $this->generateUrl('ticket', ['_locale'=>]);
                     return $this->redirectToRoute('ticket');
+
                 }
                 $param = array();
                 $param['valid'] = true;

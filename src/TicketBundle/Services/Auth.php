@@ -3,20 +3,22 @@
 namespace TicketBundle\Services;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\RouterInterface;
 
 class Auth
 {
-
     private $manager;
     private $router;
+    private $session;
 
-    public function __construct($manager, RouterInterface $router)
+    public function __construct($manager, RouterInterface $router, Session $session)
     {
         $this->manager = $manager;
         $this->router = $router;
+        $this->session = $session;
     }
 
     public function checkLogin(Request $request)
@@ -31,7 +33,7 @@ class Auth
     {
         $session = $request->getSession();
         $user = $this->manager->getRepository('TicketBundle:TicketUser')->findBy(array('email' => $session->get('email')));
-        if ($user[0]->getValid() != null) {
+        if(!empty($user) && $user[0]->getValid() != null) {
             return $user[0]->getValid();
         } else
             return false;
@@ -53,15 +55,15 @@ class Auth
                     $session->set('email', $user[0]->getEmail());
 //                    return new RedirectResponse($this->router->generate('ticket'));
                 } else {
-                    $this->addFlash('danger', 'Wrong password, please try again');
+                    $this->session->getFlashBag()->add('danger', 'Wrong password, please try again');
                     return new RedirectResponse($this->router->generate('index'));
                 }
             } else {
-                $this->addFlash('danger', 'User does not exist, please verify');
+                $this->session->getFlashBag()->add('danger', 'User does not exist, please verify');
                 return new RedirectResponse($this->router->generate('index'));
             }
         } else {
-            $this->addFlash('danger', 'Must be completed email and password');
+            $this->session->getFlashBag()->add('danger', 'Must be completed email and password');
             return new RedirectResponse($this->router->generate('index'));
         }
     }

@@ -57,6 +57,10 @@ logout:
     path: /logout
     defaults: { _controller: TicketBundle:Default:logout }
 
+lang:
+    path: /lang/{_locale}
+    defaults: { _controller: TicketBundle:Default:lang }
+
 #app/config/routing.yml
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

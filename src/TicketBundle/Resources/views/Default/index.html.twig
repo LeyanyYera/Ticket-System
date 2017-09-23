@@ -19,8 +19,8 @@
                 <div class="col-sm-4 col-sm-offset-4 form-box">
                     <div class="form-top" style="background-color: #337AB7; color: white">
                         <div class="form-top-left">
-                            <strong><p>Welcome to</p></strong>
-                            <h3 class="text-login">Ticket System</h3>
+                            <p><strong>{% trans %}welcome_to{% endtrans %}</strong></p>
+                            <h3 class="text-login">{% trans %}system_name{% endtrans %}</h3>
                         </div>
                         <div class="form-top-right">
                             <i class="glyphicon glyphicon-user small"></i>
@@ -45,12 +45,12 @@
                             {{ form_widget(form.password, {'attr':{'class':'form-control','placeholder':'password' }})}}
                             </div>
 
-                        <button class="btn btn-sm btn-primary btn-block" type="submit">Login</button>
+                        <button class="btn btn-sm btn-primary btn-block" type="submit">{% trans %}login{% endtrans %}</button>
 
                         <div style="padding-top: 20px">
                                 <div style="border-top: 1px solid#888; padding-top:15px; font-size:100%" >
-                                    Don't have an account!
-                                    <a href="{{ path('user_new') }}">Sign Up Here</a>
+                                    {% trans %}dont_have_account{% endtrans %}
+                                    <a href="{{ path('user_new') }}">{% trans %}sign_up{% endtrans %}</a>
                                 </div>
                             </div>
 

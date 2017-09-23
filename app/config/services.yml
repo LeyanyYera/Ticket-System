@@ -11,10 +11,17 @@ services:
     app.twig:
         class: TicketBundle\Services\Twig
         public: true
+        arguments: ["@router"]
         tags:
             - {name: twig.extension}
 
     app.auth:
         class: TicketBundle\Services\Auth
         public: true
-        arguments: ["@doctrine.orm.entity_manager", "@router"]
+        arguments: ["@doctrine.orm.entity_manager", "@router", "@session"]
+
+    app.locale_listener:
+        class: TicketBundle\EvenListener\LocaleListener
+        arguments: ["%kernel.default_locale%"]
+        tags:
+            - { name: kernel.event_subscriber }

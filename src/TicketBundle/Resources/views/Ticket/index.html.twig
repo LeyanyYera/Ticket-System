@@ -43,9 +43,7 @@
                         <td style="width: 10%">
                             <div class="btn-block">
                                 <a class="glyphicon glyphicon-edit icon-color" title="Edit ticket" href="{{ path('ticket_edit', {'id':ticket.id})}}"></a>
-                                {#<a class="glyphicon glyphicon-minus icon-color" title="Delete ticket" href="{{ path('ticket_delete', {'id':ticket.id})}}"></a>#}
-                                <a class="glyphicon glyphicon-minus icon-color" title="Delete ticket" href=""
-                                   id="del_ticket"></a>
+                                <a class="glyphicon glyphicon-minus icon-color" title="Delete ticket" href="{{ path('ticket_delete', {'id':ticket.id})}}"></a>
                                 <a class="glyphicon glyphicon-remove icon-color" title="Close ticket" href="{{ path('ticket_close', {'id':ticket.id})}}"></a>
                                 <a class="glyphicon glyphicon-user icon-color" title="Assign ticket" href="{{ path('ticket_assign', {'id':ticket.id})}}"></a>
                             </div>

@@ -16,7 +16,7 @@
             {{ form_widget(form.title, {'attr':{'class':'form-control'}})}}
         </div>
         <div class="col-sm-4">
-                <label>Assignee:<span class="text-danger required">*</span></label>
+                <label for="assignee">Assignee:<span class="text-danger required">*</span></label>
                 <select class="form-control" id="assignee" name="assignee">
                     {% for as in assignee %}
                         {% if as.email == assignee_default %}
@@ -28,7 +28,7 @@
                 </select>
             </div>
         <div class="col-sm-4">
-            <label>Status:<span class="text-danger required">*</span></label>
+            <label for="status">Status:<span class="text-danger required">*</span></label>
             <select class="form-control" id="status" name="status">
                 {% for st in status %}
                     {% if st.id == status_default %}
@@ -61,8 +61,8 @@
                     message: 'Are you sure want cancel?',
                     buttons: [{
                         label: 'Accept',
-                        action: function(dialog) {
-                            $('body').load(Routing.generate('ticket'));
+                        action: function() {
+                            $('body').load(Routing.generate('ticket') );
                         }
                     }, {
                         label: 'Cancel',
@@ -74,10 +74,10 @@
             });
             $("#assignee").change(function(){
                 $("#assignee_id").val($("#assignee").find('option:selected').attr('id'));
-            })
+            });
             $("#status").change(function(){
                 $("#status_id").val($("#status").find('option:selected').attr('id'));
-            })
+            });
         });
     </script>
 {% endblock %}
