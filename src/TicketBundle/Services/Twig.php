@@ -14,7 +14,6 @@ class Twig extends \Twig_Extension {
 
     public function getFunctions(){
         return array(
-//            new \Twig_Function_Method($this, 'generateButtonBar')
             'generateButtonBar' => new \Twig_Function_Method($this, 'generateButtonBar'),
             'generateLanguageBar' => new \Twig_Function_Method($this, 'generateLanguageBar')
         );

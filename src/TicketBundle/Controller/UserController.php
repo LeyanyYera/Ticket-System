@@ -19,11 +19,12 @@ class UserController extends Controller
             $form->remove('valid');
             $param = array();
             $data = $request->request->all();
+            $session = $request->getSession();
             if (isset($data['search'])) {
-                $param['name'] = $data['search'];
-                $search = $data['search'];
-            } else
-                $search = "";
+                $session->set('search_user', $data['search']);
+            }
+            $param['name'] = $session->get('search_user');
+            $search = $session->get('search_user');
             $query = $em = $this->getDoctrine()->getManager()->getRepository("TicketBundle:TicketUser")->getUsers($param);
             $paginator = $this->get('knp_paginator');
             $users = $paginator->paginate($query, $request->query->getInt('page', 1), 5);

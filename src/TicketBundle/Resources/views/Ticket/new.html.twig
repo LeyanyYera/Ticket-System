@@ -16,7 +16,7 @@
             {{ form_widget(form.title, {'attr':{'class':'form-control'}})}}
         </div>
         <div class="col-sm-4">
-                <label for="assignee">Assignee:<span class="text-danger required">*</span></label>
+                <label for="assignee">Owner:<span class="text-danger required">*</span></label>
                 <select class="form-control" id="assignee" name="assignee">
                     {% for as in assignee %}
                         {% if as.email == assignee_default %}
@@ -29,7 +29,7 @@
             </div>
         <div class="col-sm-4">
             <label for="status">Status:<span class="text-danger required">*</span></label>
-            <select class="form-control" id="status" name="status">
+            <select class="form-control" id="status" name="status" disabled>
                 {% for st in status %}
                     {% if st.id == status_default %}
                         <option id="{{ st.id }}" selected="selected">{{st.name}}</option>

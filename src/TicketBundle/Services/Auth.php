@@ -14,23 +14,20 @@ class Auth
     private $router;
     private $session;
 
-    public function __construct($manager, RouterInterface $router, Session $session)
-    {
+    public function __construct($manager, RouterInterface $router, Session $session){
         $this->manager = $manager;
         $this->router = $router;
         $this->session = $session;
     }
 
-    public function checkLogin(Request $request)
-    {
+    public function checkLogin(Request $request){
         $session = $request->getSession();
         if ($session->has('id'))
             return true;
         return false;
     }
 
-    public function checkUserValid(Request $request)
-    {
+    public function checkUserValid(Request $request){
         $session = $request->getSession();
         $user = $this->manager->getRepository('TicketBundle:TicketUser')->findBy(array('email' => $session->get('email')));
         if(!empty($user) && $user[0]->getValid() != null) {
@@ -39,8 +36,7 @@ class Auth
             return false;
     }
 
-    public function login(Request $request)
-    {
+    public function login(Request $request){
         $data = $request->request->all();
         if (isset($data['ticket_user']['email']) && $data['ticket_user']['email'] != null &&
             isset($data['ticket_user']['password']) && $data['ticket_user']['password'] != null
@@ -53,7 +49,6 @@ class Auth
                     $session->set('name', $user[0]->getName());
                     $session->set('role', $user[0]->getRole());
                     $session->set('email', $user[0]->getEmail());
-//                    return new RedirectResponse($this->router->generate('ticket'));
                 } else {
                     $this->session->getFlashBag()->add('danger', 'Wrong password, please try again');
                     return new RedirectResponse($this->router->generate('index'));

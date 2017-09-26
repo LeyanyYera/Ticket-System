@@ -39,5 +39,4 @@ class DefaultController extends Controller
     public function langAction(){
         return $this->redirectToRoute('ticket');
     }
-
 }

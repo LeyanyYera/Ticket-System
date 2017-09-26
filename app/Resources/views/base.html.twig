@@ -35,35 +35,17 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right" style="margin-right: 90px">
                     <li>
+                        {% set current_lang = app.request.getLocale()  %}
+                        {% set path = path('lang', {'_locale':current_lang })  %}
+                        {{ generateLanguageBar(current_lang, path) | raw }}
+                    </li>
+                    <li>
                         <a data-toggle="dropdown" href="#" >
                             <span style="margin-right: 2px" class="glyphicon glyphicon-user"></span>{{ app.session.get('name') }}<span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="{{ path('logout') }}" >Logout</a></li>
                         </ul>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right" style="margin-right: 90px">
-                    <li>
-                        {% set current_lang = app.request.getLocale()  %}
-                        {% set path = path('lang', {'_locale':current_lang })  %}
-                        {{ generateLanguageBar(current_lang, path) | raw }}
-                        {#{% set current_lang = app.request.getLocale()  %}#}
-                        {#{% if(current_lang == 'en') %}#}
-                            {#<a data-toggle="dropdown" href="#" >#}
-                                {#<span style="margin-right: 2px" class="glyphicon glyphicon-flag"></span>{% trans %}EN{% endtrans %}<span class="caret"></span>#}
-                            {#</a>#}
-                            {#<ul class="dropdown-menu">#}
-                                {#<li><a id="" href="{{ path('lang',{_locale:'es'}) }}" >ES</a></li>#}
-                            {#</ul>#}
-                        {#{% else %}#}
-                            {#<a data-toggle="dropdown" href="#" >#}
-                                {#<span style="margin-right: 2px" class="glyphicon glyphicon-flag"></span>{% trans %}ES{% endtrans %}<span class="caret"></span>#}
-                            {#</a>#}
-                            {#<ul class="dropdown-menu">#}
-                                {#<li><a id="" href="{{ path('lang',{_locale:'en'}) }}" >EN</a></li>#}
-                            {#</ul>#}
-                        {#{% endif %}#}
                     </li>
                 </ul>
             </div>

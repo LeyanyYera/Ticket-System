@@ -21,11 +21,9 @@ class TicketType extends AbstractType
         $builder
             ->add('title', new ComponentTextType(), array('required'=> true))
             ->add('body', new TextareaType(), array('required'=> true))
-//            ->add('created', 'date')
             ->add('status', EntityType::class, array(
                 'property'=>'name',
                 'class'=> 'TicketBundle\Entity\Status'))
-//            ->add('author')
             ->add('assignee', EntityType::class, array('required'=> true, 'empty_value'=>'--Select--',
                 'property'=>'name',
                 'class'=> 'TicketBundle\Entity\TicketUser'));

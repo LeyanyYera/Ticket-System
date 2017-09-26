@@ -10,11 +10,6 @@ use TicketBundle\Form\TicketType;
 class TicketController extends Controller
 {
     public function getTicketsAction(Request $request){
-
-//        var_dump($locale = $request->getLocale());
-//        var_dump($request->attributes->get('_locale'));
-//        var_dump($this->get('translator')->trans('system_name'));
-
         $auth = $this->get('app.auth')->checkLogin($request);
         $valid = $this->get('app.auth')->checkUserValid($request);
         if ($auth && $valid) {
@@ -27,8 +22,10 @@ class TicketController extends Controller
             $form->remove('status');
             $param = array();
             $data = $request->request->all();
-            if (isset($data['search']))
-                $param['title'] = $data['search'];
+            if (isset($data['search'])){
+                $session->set('search_ticket', $data['search']);
+            }
+            $param['title'] = $session->get('search_ticket');
             if ($role === 'default')//if user is 'default' it shows their tickets assigned, otherwise all are shown
                 $param['assignee'] = $session->get('id');
             if (isset($data['selected'])) {
@@ -39,10 +36,7 @@ class TicketController extends Controller
                 $selected = 1;
                 $param['status'] = 1;
             }
-            if (isset($data['search']))
-                $search = $data['search'];
-            else
-                $search = "";
+            $search = $session->get('search_ticket');
             $query = $em = $this->getDoctrine()->getManager()->getRepository("TicketBundle:Ticket")->getTickets($param);
             $paginator = $this->get('knp_paginator');
             $tickets = $paginator->paginate($query, $request->query->getInt('page', 1), 5);
@@ -178,7 +172,6 @@ class TicketController extends Controller
                     $em->persist($ticket);
                     $em->flush();
                     $this->addFlash('notice', 'Assignee changed success');
-//                    return $this->generateUrl('ticket', ['_locale'=>]);
                     return $this->redirectToRoute('ticket');
 
                 }
@@ -190,7 +183,6 @@ class TicketController extends Controller
                 $users = $em = $this->getDoctrine()->getManager()->getRepository("TicketBundle:TicketUser")->getUsers($param);
                 return $this->render('TicketBundle:Ticket:assign.html.twig', array(
                     'ticket' => $ticket,
-//                    'id' => $ticket->getId(),
                     'users'=>$users,
                     'search'=>$search,
                     'form' => $form->createView()
