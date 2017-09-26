@@ -3,6 +3,7 @@
 namespace TicketBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use TicketBundle\TicketBundle;
 
 /**
  * Ticket
@@ -45,7 +46,7 @@ class Ticket
     private $status;
 
     /**
-     * @var Author
+     * @var TicketBundle/Entity/TicketUser
      *
      * @ORM\ManyToOne(targetEntity="TicketBundle\Entity\TicketUser")
      * @ORM\JoinColumn(name="author", referencedColumnName="id")

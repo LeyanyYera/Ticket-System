@@ -62,5 +62,5 @@ lang:
     defaults: { _controller: TicketBundle:Default:lang }
 
 #app/config/routing.yml
-fos_js_routing:
+fos_js_routing_js:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
