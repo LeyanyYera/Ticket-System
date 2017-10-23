@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8" content="width=device-width, initial-scale=1"/>
+        <meta charset="UTF-8" content="width=device-width, user-scalable=no initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
 
         <title>{% block title %}Welcome!{% endblock %}</title>
 
@@ -18,57 +18,58 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        <nav class="navbar" style="background-color: #337AB7">
-            <div class="container-fluid" >
-                <div class="navbar-header" style="margin-left: 90px">
-                    {#<img width="200px" src="{{ asset('logo.jpg') }}" style="margin-top: 3px">#}
-                    <a style="color: white" class="navbar-brand" href="{{ path('ticket') }}">{% trans %}system_name{% endtrans %}</a>
+        <div class="container">
+            <nav class="navbar" style="background-color: #337AB7">
+                <div class="container-fluid" >
+                    <div class="navbar-header">
+                        {#<img width="200px" src="{{ asset('logo.jpg') }}" style="margin-top: 3px">#}
+                        <a style="color: white" class="navbar-brand" href="{{ path('ticket') }}">{% trans %}system_name{% endtrans %}</a>
+                    </div>
+                    <ul class="nav navbar-nav" >
+                        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" >Tickets<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ path('ticket') }}" >List</a></li>
+                                <li><a href="{{ path('ticket_new') }}" >New</a></li>
+                            </ul>
+                        </li>
+                        <li id="menu-users"><a href="{{ path('users') }}">Users</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            {% set current_lang = app.request.getLocale()  %}
+                            {% set path = path('lang', {'_locale':current_lang })  %}
+                            {{ generateLanguageBar(current_lang, path) | raw }}
+                        </li>
+                        <li>
+                            <a data-toggle="dropdown" href="#" >
+                                <span style="margin-right: 2px" class="glyphicon glyphicon-user"></span>{{ app.session.get('name') }}<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ path('logout') }}" >Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
-                <ul class="nav navbar-nav" >
-                    <li class="dropdown" id="menu-tickets"><a class="dropdown-toggle" data-toggle="dropdown" href="#" >Tickets<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{{ path('ticket') }}" >List</a></li>
-                            <li><a href="{{ path('ticket_new') }}" >New</a></li>
-                        </ul>
-                    </li>
-                    <li id="menu-users"><a href="{{ path('users') }}">Users</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right" style="margin-right: 90px">
-                    <li>
-                        {% set current_lang = app.request.getLocale()  %}
-                        {% set path = path('lang', {'_locale':current_lang })  %}
-                        {{ generateLanguageBar(current_lang, path) | raw }}
-                    </li>
-                    <li>
-                        <a data-toggle="dropdown" href="#" >
-                            <span style="margin-right: 2px" class="glyphicon glyphicon-user"></span>{{ app.session.get('name') }}<span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{{ path('logout') }}" >Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+            </nav>
 
-        <div class="container text-center" style="background-color: #eeeeee">
-            <div class="row content">
-                {% for flashMessage in app.session.flashBag.get('notice') %}
-                    <div class="alert alert-success" id="myAlertNotice">
-                        <a href="#" class="close">&times;</a>
-                        <strong>{{ flashMessage }}</strong>
-                    </div>
-                {% endfor %}
+            <div class="text-center" style="background-color: #eeeeee">
+                <div class="row content">
+                    {% for flashMessage in app.session.flashBag.get('notice') %}
+                        <div class="alert alert-success" id="myAlertNotice">
+                            <a href="#" class="close">&times;</a>
+                            <strong>{{ flashMessage }}</strong>
+                        </div>
+                    {% endfor %}
 
-                {% for flashMessage in app.session.flashBag.get('danger') %}
-                    <div class="alert alert-danger" id="myAlertDanger" style="margin:0 120px 0 120px">
-                        <a href="#" class="close">&times;</a>
-                        <strong>{{ flashMessage }}</strong>
-                    </div>
-                {% endfor %}
-                <div class="col-sm-12 text-left">
+                    {% for flashMessage in app.session.flashBag.get('danger') %}
+                        <div class="alert alert-danger" id="myAlertDanger" style="margin:0 120px 0 120px">
+                            <a href="#" class="close">&times;</a>
+                            <strong>{{ flashMessage }}</strong>
+                        </div>
+                    {% endfor %}
+                    <div class="col-sm-12 text-left">
 
-                    {% block navigation %}{% endblock %}
+                        {% block navigation %}{% endblock %}
 
                         <div class="page-title">
                             <h4>
@@ -76,24 +77,25 @@
                             </h4>
                         </div>
 
-                    {% block body %}{% endblock %}
+                        {% block body %}{% endblock %}
 
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <footer class="container-fluid text-center" style="background-color: #337AB7">
-            <p style="color: white"><strong>Leyany Yera Moya. © 2017<br>Todos los derechos reservados</strong></p>
-        </footer>
+            <footer class="container-fluid text-center" style="background-color: #337AB7">
+                <p style="color: white"><strong>Leyany Yera Moya. © 2017<br>Todos los derechos reservados</strong></p>
+            </footer>
 
-        {% block javascripts %}
-            <script>
-                $(document).ready(function(){
-                    $(".close").click(function(){
-                        $(".alert").alert("close");
+            {% block javascripts %}
+                <script>
+                    $(document).ready(function(){
+                        $(".close").click(function(){
+                            $(".alert").alert("close");
+                        });
                     });
-                });
-            </script>
-        {% endblock %}
+                </script>
+            {% endblock %}
+        </div>
     </body>
 </html>
